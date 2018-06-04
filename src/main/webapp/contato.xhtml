@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<ui:composition template="WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="corpo">
+        <h:form id="formcontato">
+            <p:growl autoUpdate="true"/>
+            <p:panel id="panelcontato" header="contato">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Rua" for="rua"/>
+                    <p:inputText id="rua" value="#{contatoController.contato.rua}"
+                                 required="true" requiredMessage="Campo rua obrigatório"/>
+
+                    <p:outputLabel value="Numero:" for="numero"/>
+                    <p:inputText id="numero" value="#{contatoController.contato.numero}"
+                                required="true" requiredMessage="Campo numero obrigatório"/>
+
+                    <p:outputLabel value="Bairro:" for="bairro"/>
+                    <p:inputText id="bairro" value="#{contatoController.contato.bairro}"
+                                 required="true" requiredMessage="Campo rua obrigatório"/>
+
+         
+                    <p:outputLabel value="cidade:" for="cidade"/>
+                    <p:inputText id="cidade" value="#{contatoController.contato.cidade}"
+                                 required="true" requiredMessage="Campo cidade obrigatório"/>
+
+                    <p:outputLabel value="uf:" for="uf"/>
+                    <p:inputText id="uf" value="#{contatoController.contato.uf}"
+                                 required="true" requiredMessage="Campo uf obrigatório"/>
+
+                    <p:outputLabel value="email:" for="email"/>
+                    <p:inputText id="email" value="#{contatoController.contato.email}"
+                                 required="true" requiredMessage="Campo email obrigatório"/>
+
+                    <p:outputLabel value="fone:" for="fone"/>
+                    <p:inputText id="fone" value="#{contatoController.contato.telefone}"
+                                 required="true" requiredMessage="Campo fone obrigatório"/>
+
+                    <p:commandButton value="Salvar"
+                                     actionListener="#{contatoController.salvar}"
+                                     update=" formcontato "/>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
