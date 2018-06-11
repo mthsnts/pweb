@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<ui:composition template="WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="corpo">
+        <h:form id="formaluno">
+            <p:growl autoUpdate="true"/>
+            <p:panel id="panelaluno" header="aluno">
+                <p:panelGrid columns="2">         
+                    <p:outputLabel value="nome:" for="nome"/>
+                    <p:inputText id="nome" value="#{alunoController.aluno.nome}"
+                                 required="true" requiredMessage="Campo nome obrigatório"/>
+
+                    <p:outputLabel value="nascimento:" for="nascimento"/>
+                    <p:calendar id="nascimento" value="#{alunoController.aluno.nascimento}"
+                                 required="true" requiredMessage="Campo nascimento obrigatório"/>
+
+                    <p:outputLabel value="sexo:" for="sexo"/>
+                    <p:inputText id="sexo" value="#{alunoController.aluno.sexo}"
+                                 required="true" requiredMessage="Campo sexo obrigatório"/>
+
+                    <p:outputLabel value="contato:" for="contato"/>
+                    <p:inputText id="contato" value="#{alunoController.aluno.contato}"
+                                 required="true" requiredMessage="Campo contato obrigatório"/>
+
+                    <p:commandButton value="Salvar"
+                                     actionListener="#{alunoController.salvar}"
+                                     update=" formaluno "/>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+        
+		<h:form id="formTableContatos">
+			<p:dataTable value="#{alunoController.contatos}" var="disciplina"
+				emptyMessage="Foram encontrados 0 registros" reflow="true"
+				paginator="true" rows="10">
+
+				<p:column headerText="Rua" sortBy="#{contato.rua}">
+					<p:outputLabel value="#{contato.rua}" />
+				</p:column>
+
+
+				<p:column headerText="Numero" sortBy="#{contato.numero}">
+					<p:outputLabel value="#{contato.numero}" />
+				</p:column>
+				
+				
+				<p:column headerText="bairro" sortBy="#{contato.bairro}">
+					<p:outputLabel value="#{contato.bairro}" />
+				</p:column>
+				
+				
+				<p:column headerText="cidade" sortBy="#{contato.cidade}">
+					<p:outputLabel value="#{contato.cidade}" />
+				</p:column>
+				
+				<p:column headerText="Uf" sortBy="#{contato.uf}">
+					<p:outputLabel value="#{contato.uf}" />
+				</p:column>
+
+
+				<p:column headerText="Email" sortBy="#{contato.email}">
+					<p:outputLabel value="#{contato.email}" />
+				</p:column>
+				
+				
+				<p:column headerText="Fone" sortBy="#{contato.fone}">
+					<p:outputLabel value="#{contato.fone}" />
+				</p:column>
+
+				<p:column headerText="Ações">
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{alunoController.editar}" update="formdisciplina">
+						<f:attribute name="contatoSelecionado" value="#{alunoController.contatoSelecionado}" />
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{alunoController.excluir}"
+						update="formdisciplina formTabledisciplina">
+
+						<p:confirm header="Confirmação" message="Excluir disciplina?"
+							icon="ui-icon-alert" />
+						<f:attribute name="contatoExcluido" value="#{contato}" />
+					</p:commandButton>
+
+				</p:column>
+
+				<f:facet name="footer">
+					<p:outputLabel
+						value="Foram encontrados #{alunoController.contatos.size()} registros." />
+				</f:facet>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+
+    </ui:define>
+</ui:composition>
