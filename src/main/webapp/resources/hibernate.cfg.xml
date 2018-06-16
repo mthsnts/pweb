@@ -29,10 +29,12 @@
 		<property name="show_sql">true</property>
 
 		<!-- Cria as tabelas do banco de dados -->
-		<property name="hbm2ddl.auto">create</property>
-		
-		<!-- Mapeamento das entidades --> 
- 		    <mapping class="model.Contato"/> 
+		<property name="hbm2ddl.auto">validate</property>
+
+		<!-- Mapeamento das entidades -->
+		<mapping class="model.Contato" />
+		<mapping class="model.Aluno" />
+		<mapping class="model.Discplina" />
 	</session-factory>
 
 </hibernate-configuration>

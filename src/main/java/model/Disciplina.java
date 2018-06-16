@@ -26,17 +26,17 @@ public class Disciplina implements Serializable{
 	@Column(length=6, name="sem")
 	private Integer semestre;
 
-	@OneToMany(mappedBy="disciplina", cascade=CascadeType.ALL)
-	private List<Matricula> matriculas;
+//	@OneToMany(mappedBy="disciplina", cascade=CascadeType.ALL)
+	//private List<Matricula> matriculas;
 	
 	
 	
-	public List<Matricula> getMatriculas() {
-		return matriculas;
-	}
+	//public List<Matricula> getMatriculas() {
+//		return matriculas;
+	//}
 
 	public void setMatriculas(List<Matricula> matriculas) {
-		this.matriculas = matriculas;
+	//	this.matriculas = matriculas;
 	}
 
 	public Integer getId() {
@@ -87,5 +87,10 @@ public class Disciplina implements Serializable{
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return nome + " / " + semestre;
+}
 
 }

@@ -1,7 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +23,7 @@ public class Matricula implements Serializable {
 	@ManyToOne
 	@JoinColumn(nullable=false)
 	private Aluno aluno;
-
+	
 	public Integer getId() {
 		return id;
 	}

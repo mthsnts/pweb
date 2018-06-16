@@ -23,10 +23,6 @@
                     <p:inputText id="sexo" value="#{alunoController.aluno.sexo}"
                                  required="true" requiredMessage="Campo sexo obrigatório"/>
 
-                    <p:outputLabel value="contato:" for="contato"/>
-                    <p:inputText id="contato" value="#{alunoController.aluno.contato}"
-                                 required="true" requiredMessage="Campo contato obrigatório"/>
-
                     <p:commandButton value="Salvar"
                                      actionListener="#{alunoController.salvar}"
                                      update=" formaluno "/>
@@ -35,7 +31,7 @@
         </h:form>
         
 		<h:form id="formTableContatos">
-			<p:dataTable value="#{alunoController.contatos}" var="disciplina"
+			<p:dataTable value="#{alunoController.contatos}" var="contato"
 				emptyMessage="Foram encontrados 0 registros" reflow="true"
 				paginator="true" rows="10">
 
@@ -68,21 +64,21 @@
 				</p:column>
 				
 				
-				<p:column headerText="Fone" sortBy="#{contato.fone}">
-					<p:outputLabel value="#{contato.fone}" />
+				<p:column headerText="Fone" sortBy="#{contato.telefone}">
+					<p:outputLabel value="#{contato.telefone}" />
 				</p:column>
 
 				<p:column headerText="Ações">
 					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{alunoController.editar}" update="formdisciplina">
+						actionListener="#{alunoController.editar}" update="formTableContatos">
 						<f:attribute name="contatoSelecionado" value="#{alunoController.contatoSelecionado}" />
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-trash"
 						actionListener="#{alunoController.excluir}"
-						update="formdisciplina formTabledisciplina">
+						update="formTableContatos">
 
-						<p:confirm header="Confirmação" message="Excluir disciplina?"
+						<p:confirm header="Confirmação" message="Excluir contato?"
 							icon="ui-icon-alert" />
 						<f:attribute name="contatoExcluido" value="#{contato}" />
 					</p:commandButton>

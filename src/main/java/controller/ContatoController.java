@@ -8,7 +8,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -29,7 +32,6 @@ public class ContatoController implements Serializable {
 	}
 	
 	public void salvar() {
-
 		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
 		Transaction t = null;
 		try{
@@ -52,7 +54,24 @@ public class ContatoController implements Serializable {
 	}
 
 	public void excluir(ActionEvent event) {
-		contatos.remove((Contato) event.getComponent().getAttributes().get("contatoExcluido"));
+		Contato contato= (Contato) event.getComponent().getAttributes().get("contatoExcluido");
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+		Transaction t = null;
+		try {
+			t = sessao.beginTransaction();
+			sessao.delete(contato);
+			t.commit();
+			contato = new Contato();
+		} catch (Exception e) {
+			if (t != null) {
+				t.rollback();
+			}
+			throw (e);
+
+		} finally {
+			sessao.close();
+		}
+
 	}
 
 	public Contato getContato() {

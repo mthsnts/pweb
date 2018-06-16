@@ -17,7 +17,8 @@ public class Contato implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	@Column(name="idContato")
+	private Integer idContato;
 	@Column(length=255, name="rua")
 	private String rua;
 	@Column(length=255, name="bairro")
@@ -77,11 +78,21 @@ public class Contato implements Serializable {
 	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
+	
+	
+	public Integer getIdContato() {
+		return idContato;
+	}
+	public void setIdContato(Integer idContato) {
+		this.idContato = idContato;
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((idContato == null) ? 0 : idContato.hashCode());
 		return result;
 	}
 	@Override
@@ -93,14 +104,20 @@ public class Contato implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Contato other = (Contato) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (idContato == null) {
+			if (other.idContato != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!idContato.equals(other.idContato))
 			return false;
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		if(idContato != null)
+			return idContato + " - Rua " + rua + ", " + numero + ". " + cidade + "-" + uf;
+		return "";
+	}
+
 
 }

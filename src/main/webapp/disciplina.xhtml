@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<ui:composition template="WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="corpo">
+		<h:form id="formcontato">
+			<p:growl autoUpdate="true" />
+			<p:panel id="panelcontato" header="contato">
+				<p:panelGrid columns="2">
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome"
+						value="#{disciplinaController.disciplina.nome}" required="true"
+						requiredMessage="Campo nome obrigatório" />
+
+					<p:outputLabel value="Semeste:" for="semestre" />
+					<p:inputText id="semestre"
+						value="#{disciplinaController.disciplina.semestre}"
+						required="true" requiredMessage="Campo semestre obrigatório" />
+
+					<p:commandButton value="Salvar"
+						actionListener="#{disciplinaController.salvar}"
+						update="formTableDisciplina formcontato " />
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<h:form id="formTableDisciplina">
+			<p:dataTable value="#{disciplinaController.disciplinas}"
+				var="disciplina" emptyMessage="Foram encontrados 0 registros"
+				reflow="true" paginator="true" rows="10">
+
+				<p:column headerText="nome" sortBy="#{disciplina.nome}">
+					<p:outputLabel value="#{disciplina.nome}" />
+				</p:column>
+
+
+				<p:column headerText="semestre" sortBy="#{disciplina.semestre}">
+					<p:outputLabel value="#{disciplina.semestre}" />
+				</p:column>
+
+				<p:column headerText="Ações">
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{disciplinaController.editar}"
+						update="formTableDisciplina">
+						<f:attribute name="discilpinaSelecionada"
+							value="#{disciplinaController.disciplinaSelecionada}" />
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{disciplinaController.excluir}"
+						update="formTableDisciplina">
+
+						<p:confirm header="Confirmação" message="Excluir contato?"
+							icon="ui-icon-alert" />
+						<f:attribute name="disciplinaExcluida" value="#{disciplina}" />
+					</p:commandButton>
+
+				</p:column>
+
+				<f:facet name="footer">
+					<p:outputLabel
+						value="Foram encontrados #{disciplinaController.disciplinas.size()} registros." />
+				</f:facet>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
